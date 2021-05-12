@@ -57,13 +57,13 @@ app.get('/todos', checksExistsUserAccount, (request, response) => {
 
 app.post('/todos', checksExistsUserAccount, (request, response) => {
   const { user } = request;
-  const { title, deadLine } = request.body;
+  const { title, deadline } = request.body;
   
   const todo = {
     id: uuidv4(),
     title,
     done: false,
-    deadLine: new Date(deadLine),
+    deadline: new Date(deadline),
     created_at: new Date()
   }
 
@@ -75,7 +75,7 @@ app.post('/todos', checksExistsUserAccount, (request, response) => {
 
 app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
   const { user } = request;
-  const { title, deadLine } = request.body;
+  const { title, deadline } = request.body;
   const { id } = request.params;
 
   const todo = user.todos.find(todo => todo.id === id);
@@ -85,7 +85,7 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
   }
 
   todo.title = title;
-  todo.deadLine = new Date(deadLine);
+  todo.deadline = new Date(deadline);
 
   return response.json(todo);
 
